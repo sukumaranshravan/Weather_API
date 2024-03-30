@@ -27,8 +27,15 @@
   <section class="py-5 text-center container" id="top-box">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light text-white">Search Your Place Here..</h1>            
-        <p class="lead">"Sunshine is delicious, rain is refreshing, wind braces up, snow is exhilarating; there is no such thing as bad weather, only different kinds of good weather."<span style="font-size: xx-small;">&nbsp;Ruskin</span></p>
+        <% if(locals.place!=null){ %>
+            <h1 class="text-white"><%= place.name %></h1>
+            <p class="lead"><%= place.weather[0].description %></p>
+            <p class="lead"><span style="font-weight: bold;"><%= place.main.temp %>°C</span>, (max <%= place.main.temp_max %>°C min <%= place.main.temp_min %>°C)</p>
+            <p class="lead">Feels like <%= place.main.feels_like %>°C</p>
+          <% }else{ %>
+            <h1 class="fw-light text-white">Search Your Place Here..</h1>            
+            <p class="lead">"Sunshine is delicious, rain is refreshing, wind braces up, snow is exhilarating; there is no such thing as bad weather, only different kinds of good weather."<span style="font-size: xx-small;">&nbsp;Ruskin</span></p>
+            <% } %>
  
 <!-- this form is for POST Request for weather search -->
         <form action="/search" method="post" class="d-flex">

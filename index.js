@@ -18,7 +18,7 @@ app.get("/", (req,res)=>{
 app.post("/search", async (req,res)=>{
     const myPlace = req.body["location"]
     const placeAPI_URL = `http://api.openweathermap.org/geo/1.0/direct?q=${myPlace}&limit=1&appid=${myAPI_KEY}`
-    console.log(placeAPI_URL)
+    // console.log(placeAPI_URL)
     try{
         const response = await axios.get(placeAPI_URL)
         
@@ -29,7 +29,15 @@ app.post("/search", async (req,res)=>{
         // console.log(geoURL)
         const placeWeather = await axios.get(geoURL)
         result = placeWeather.data
-        console.log(result)
+        // console.log(result)
+        console.log(result.sys.sunrise)
+        let date = new Date(result.sys.sunrise * 1000);
+        let hours = date.getHours();
+        let minutes = "0" + date.getMinutes();
+        let seconds = "0" + date.getSeconds();
+        let time = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+        console.log(time)
+        res.redirect("/")
 
     }catch(error){
         console.log(error)
