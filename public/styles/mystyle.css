@@ -1,0 +1,13 @@
+body{
+    background-color: lightgray;
+}
+
+#top-box{
+    background-image: url(/images/weather_1.jpg);
+}
+
+.lead{
+    font-weight: lighter;
+    font-style: italic;
+    color: white;
+}
