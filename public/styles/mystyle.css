@@ -1,13 +1,55 @@
 body{
-    background-color: lightgray;
+    background-color:rgb(0, 0, 0);
+    height: 100vh;
 }
 
 #top-box{
-    background-image: url(/images/weather_1.jpg);
+    height: 500px;
+    border: solid transparent;
+    border-radius: 15px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .lead{
     font-weight: lighter;
     font-style: italic;
     color: white;
+}
+
+@keyframes animatedBackground {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 100% 0;
+    }
+  }
+  #top-box {
+
+    background-image: url(/images/weather_1.jpg);
+    background-position: 0px 0px;
+    background-repeat: repeat-x;
+    animation: animatedBackground 10s linear infinite alternate;
+  }
+
+.card{
+  height: 200px;
+  padding: 10px;
+  margin: 10px;  
+  border: 10px solid rgb(232, 231, 231);
+  border-radius: 10px;
+  transition: 0.20s;
+}
+
+
+.card-text{
+  text-align: center;
+  font-size: larger;
+  color: rgb(10, 130, 177);
+}
+
+
+.card:hover {
+  transform: scale(1.1);
 }

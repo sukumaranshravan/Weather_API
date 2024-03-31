@@ -23,65 +23,124 @@
 </header>
 
 <main>
-
-  <section class="py-5 text-center container" id="top-box">
+  <!-- this is to catch current hour and change background accordingly -->
+  <% let date = new Date() %>
+  <% let thisHour = date.getHours() %>
+  <h1 id="hour" style="display: none;"><%= thisHour %></h1>
+<!-- This area shows the result of search location usring ejs -->
+  <section class="py-5 text-center container" id="top-box" style="background-image: url(/images/weather_1.jpg);">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
         <% if(locals.place!=null){ %>
-            <h1 class="text-white"><%= place.name %></h1>
+            <h1 class="text-white"><%= place.name %> <span style="font-size: large; font-weight: lighter;"><%= place.sys.country %></span></h1>
             <p class="lead"><%= place.weather[0].description %></p>
             <p class="lead"><span style="font-weight: bold;"><%= place.main.temp %>°C</span>, (max <%= place.main.temp_max %>°C min <%= place.main.temp_min %>°C)</p>
             <p class="lead">Feels like <%= place.main.feels_like %>°C</p>
+            <form action="/search" method="post" class="d-flex">
+              <input type="text" name="location" class="form-control" placeholder="Find Weather Condition">&nbsp;
+          <input type="submit" value="Search" class="btn btn-dark">
+          </form>
           <% }else{ %>
             <h1 class="fw-light text-white">Search Your Place Here..</h1>            
             <p class="lead">"Sunshine is delicious, rain is refreshing, wind braces up, snow is exhilarating; there is no such thing as bad weather, only different kinds of good weather."<span style="font-size: xx-small;">&nbsp;Ruskin</span></p>
-            <% } %>
- 
+            
+            
 <!-- this form is for POST Request for weather search -->
         <form action="/search" method="post" class="d-flex">
             <input type="text" name="location" class="form-control" placeholder="Find Weather Condition">&nbsp;
         <input type="submit" value="Search" class="btn btn-dark">
         </form>
+        <% } %>
       </div>
-    </div>
   </section>
-
+  <% if(locals.place){ %>
   <div class="album py-5">
     <div class="container">
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <div class="col">
           <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100" fill="currentColor" class="bi bi-wind" viewBox="-.5 0 16 16" >
+              <path d="M12.5 2A2.5 2.5 0 0 0 10 4.5a.5.5 0 0 1-1 0A3.5 3.5 0 1 1 12.5 8H.5a.5.5 0 0 1 0-1h12a2.5 2.5 0 0 0 0-5m-7 1a1 1 0 0 0-1 1 .5.5 0 0 1-1 0 2 2 0 1 1 2 2h-5a.5.5 0 0 1 0-1h5a1 1 0 0 0 0-2M0 9.5A.5.5 0 0 1 .5 9h10.042a3 3 0 1 1-3 3 .5.5 0 0 1 1 0 2 2 0 1 0 2-2H.5a.5.5 0 0 1-.5-.5"/>
+            </svg>
             <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text">Wind Speed <span style="color: black;"><%= place.wind.speed %> m/s</span></p>
+              <p class="card-text">Direction <span style="color: black;"><%= place.wind.deg %>°</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card shadow-sm">
+            <img src="/images/svg/humidity.svg" width="100%" height="50" fill="currentColor" class="bi bi-wind" viewBox="-.5 0 16 16" >
+              <path d="M12.5 2A2.5 2.5 0 0 0 10 4.5a.5.5 0 0 1-1 0A3.5 3.5 0 1 1 12.5 8H.5a.5.5 0 0 1 0-1h12a2.5 2.5 0 0 0 0-5m-7 1a1 1 0 0 0-1 1 .5.5 0 0 1-1 0 2 2 0 1 1 2 2h-5a.5.5 0 0 1 0-1h5a1 1 0 0 0 0-2M0 9.5A.5.5 0 0 1 .5 9h10.042a3 3 0 1 1-3 3 .5.5 0 0 1 1 0 2 2 0 1 0 2-2H.5a.5.5 0 0 1-.5-.5"/>
+            </img>
+            <div class="card-body">
+              <p class="card-text">Humidity <span style="color: black;"><%= place.main.humidity %>%</span></p>
+              <p class="card-text"></p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card shadow-sm">
+            <img src="/images/svg/pressure.svg" width="100%" height="50" fill="currentColor" class="bi bi-wind" viewBox="-.5 0 16 16" >
+              <path d="M12.5 2A2.5 2.5 0 0 0 10 4.5a.5.5 0 0 1-1 0A3.5 3.5 0 1 1 12.5 8H.5a.5.5 0 0 1 0-1h12a2.5 2.5 0 0 0 0-5m-7 1a1 1 0 0 0-1 1 .5.5 0 0 1-1 0 2 2 0 1 1 2 2h-5a.5.5 0 0 1 0-1h5a1 1 0 0 0 0-2M0 9.5A.5.5 0 0 1 .5 9h10.042a3 3 0 1 1-3 3 .5.5 0 0 1 1 0 2 2 0 1 0 2-2H.5a.5.5 0 0 1-.5-.5"/>
+            </svg>
+            <div class="card-body">
+              <p class="card-text">Pressure <span style="color: black;"><%= place.main.pressure %>hPa</span></p>
+              <p class="card-text">Ground Level <span style="color: black;"><%= place.main.grnd_level %>hPa</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="50" fill="currentColor" class="bi bi-brightness-alt-high" viewBox="0 0 16 16">
+              <path d="M8 3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 3m8 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5m-13.5.5a.5.5 0 0 0 0-1h-2a.5.5 0 0 0 0 1zm11.157-6.157a.5.5 0 0 1 0 .707l-1.414 1.414a.5.5 0 1 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m-9.9 2.121a.5.5 0 0 0 .707-.707L3.05 5.343a.5.5 0 1 0-.707.707zM8 7a4 4 0 0 0-4 4 .5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5 4 4 0 0 0-4-4m0 1a3 3 0 0 1 2.959 2.5H5.04A3 3 0 0 1 8 8"/>
+            </svg>
+            <% function unixToIst(unix){ %>
+              <% let date = new Date(unix * 1000); %>
+              <% let hours = date.getHours(); %>
+              <% let minutes = "0" + date.getMinutes() %>
+              <%  let seconds = "0" + date.getSeconds()%>
+              <% let time = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2); %>
+              <% return time %>
+            <% } %>
+            
+            <% let sR = unixToIst(place.sys.sunrise) %>
+            <% let sS = unixToIst(place.sys.sunset) %>
+            <div class="card-body">
+              <p class="card-text">Sunrise <span style="color: black;"><%= sR %> am</span></p>
+              <p class="card-text">Sunset <span style="color: black;"><%= sS %> pm</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="50" fill="currentColor" class="bi bi-cloud-rain-heavy" viewBox="0 0 16 16">
+              <path d="M4.176 11.032a.5.5 0 0 1 .292.643l-1.5 4a.5.5 0 1 1-.936-.35l1.5-4a.5.5 0 0 1 .644-.293m3 0a.5.5 0 0 1 .292.643l-1.5 4a.5.5 0 1 1-.936-.35l1.5-4a.5.5 0 0 1 .644-.293m3 0a.5.5 0 0 1 .292.643l-1.5 4a.5.5 0 1 1-.936-.35l1.5-4a.5.5 0 0 1 .644-.293m3 0a.5.5 0 0 1 .292.643l-1.5 4a.5.5 0 0 1-.936-.35l1.5-4a.5.5 0 0 1 .644-.293m.229-7.005a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 10H13a3 3 0 0 0 .405-5.973M8.5 1a4 4 0 0 1 3.976 3.555.5.5 0 0 0 .5.445H13a2 2 0 0 1 0 4H3.5a2.5 2.5 0 1 1 .605-4.926.5.5 0 0 0 .596-.329A4 4 0 0 1 8.5 1"/>
+            </svg>
+            <div class="card-body">
+              <p class="card-text"><span style="color: black;"><%= place.weather[0].main %></span></p>
+              <p class="card-text">Chances of Rain <span style="color: black;"><%= place.weather[0].description %></span></p>
               
             </div>
           </div>
         </div>
         <div class="col">
           <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="50" fill="currentColor" class="bi bi-thermometer-half" viewBox="0 0 16 16">
+              <path d="M9.5 12.5a1.5 1.5 0 1 1-2-1.415V6.5a.5.5 0 0 1 1 0v4.585a1.5 1.5 0 0 1 1 1.415"/>
+              <path d="M5.5 2.5a2.5 2.5 0 0 1 5 0v7.55a3.5 3.5 0 1 1-5 0zM8 1a1.5 1.5 0 0 0-1.5 1.5v7.987l-.167.15a2.5 2.5 0 1 0 3.333 0l-.166-.15V2.5A1.5 1.5 0 0 0 8 1"/>
+            </svg>
             <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              
+              <p class="card-text"><span style="color: rgb(227, 142, 24);">Max-Temperature</span> <span style="color: rgb(5, 5, 5);"><%= place.main.temp_max %>°C</span></p>
+              <p class="card-text"><span style="color: rgb(34, 134, 206);">Min-Temperature</span> <span style="color: rgb(0, 0, 0);"><%= place.main.temp_min %>°C</span></p>
             </div>
           </div>
         </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              
-            </div>
-          </div>
-        </div>
-   
       </div>
     </div>
   </div>
-
+  <% } %>
 </main>
 
 <footer class="text-body-white py-3 bg-dark">
@@ -89,10 +148,8 @@
     <p class="mb-1" style="color: white; text-align: right;">WeatherBuddy © 2024</p>
   </div>
 </footer>
-<script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-
-    
+<script src="/styles/my.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.minjs" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"crossorigin="anonymous"></script>
+
 </body>
 </html>

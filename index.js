@@ -30,13 +30,6 @@ app.post("/search", async (req,res)=>{
         const placeWeather = await axios.get(geoURL)
         result = placeWeather.data
         // console.log(result)
-        console.log(result.sys.sunrise)
-        let date = new Date(result.sys.sunrise * 1000);
-        let hours = date.getHours();
-        let minutes = "0" + date.getMinutes();
-        let seconds = "0" + date.getSeconds();
-        let time = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-        console.log(time)
         res.redirect("/")
 
     }catch(error){
@@ -47,3 +40,5 @@ app.post("/search", async (req,res)=>{
 app.listen(port,(req,res)=>{
     console.log(`Server is running on port ${port}`)
 })
+
+
