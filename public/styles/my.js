@@ -10,7 +10,7 @@ if(curTime>20){
 }else if(curTime>18){
     let src = "/images/day/"+day[4]+".jpg"
     document.querySelector("#top-box").setAttribute("style",`background-image: url(${src})`)
-}else if(curTime>14){
+}else if(curTime>=14){
     let src = "/images/day/"+day[3]+".jpg"
     document.querySelector("#top-box").setAttribute("style",`background-image: url(${src})`)
 }else if(curTime>12){
