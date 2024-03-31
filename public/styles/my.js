@@ -1,5 +1,3 @@
-// document.querySelector("#.top-box")
-
 const day = ["dawn","morning","noon","evening","dusk","night"]
 
 let curTime = document.querySelector("#hour").innerHTML
@@ -24,3 +22,6 @@ if(curTime>20){
     document.querySelector("#top-box").setAttribute("style",`background-image: url(${src})`)
 }
 
+function myFunction() {
+    alert("WeatherBuddy is a realtime weather tracking app developed with the help of OpenWeather API, Link:https://openweathermap.org/appid");
+  }

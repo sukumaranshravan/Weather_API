@@ -33,7 +33,8 @@ app.post("/search", async (req,res)=>{
         res.redirect("/")
 
     }catch(error){
-        console.log(error)
+        console.log("An Error Occured..")
+        res.render("index.ejs")
     }
 })
 
