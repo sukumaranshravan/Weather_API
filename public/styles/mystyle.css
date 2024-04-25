@@ -26,8 +26,6 @@ body{
     }
   }
   #top-box {
-
-    background-image: url(/images/weather_1.jpg);
     background-position: 0px 0px;
     background-repeat: repeat-x;
     animation: animatedBackground 10s linear infinite alternate;

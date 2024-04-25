@@ -1,9 +1,12 @@
 import express from "express";
 import axios from "axios";
 import bodyParser from "body-parser";
+import dotenv from 'dotenv';
 
-const myAPI_KEY = "91effc9c3d7ac9f4e85e2cad87517be0"
-const API_URL = `http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=${myAPI_KEY}`
+dotenv.config();
+
+const myAPI_KEY = process.env.KEY_API
+const API_URL = process.env.URL_API
 
 const app = express();
 const port = 3000;
